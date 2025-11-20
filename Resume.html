@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harris Xu - Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-blue: #0066cc;
+            --hover-blue: #004499;
+            --card-radius: 18px;
+            --transition: all 0.3s cubic-bezier(0,0,0.5,1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.4;
+        }
+
+        /* Navigation - Frosted Glass */
+        nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0 20px;
+        }
+
+        .nav-content {
+            max-width: 980px;
+            margin: 0 auto;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .nav-content a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .nav-content a:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav-brand {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Main Layout */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 60px 20px 100px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 56px;
+            line-height: 1.07143;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            line-height: 1.16667;
+            font-weight: 400;
+            letter-spacing: .009em;
+            color: var(--text-secondary);
+            margin-top: 0;
+        }
+
+        .contact-links {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 980px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 5px;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--hover-blue);
+        }
+
+        .btn.secondary {
+            background-color: transparent;
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+        }
+
+        .btn.secondary:hover {
+            background-color: rgba(0, 102, 204, 0.1);
+        }
+
+        /* Section Titles */
+        h2 {
+            font-size: 40px;
+            line-height: 1.1;
+            font-weight: 600;
+            letter-spacing: 0em;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        /* Bento Grid / Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr 1fr; }
+            .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        /* Typography within cards */
+        .card-eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            color: var(--text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 17px;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .card-meta {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .card ul {
+            margin: 0;
+            padding-left: 20px;
+            flex-grow: 1;
+        }
+
+        .card li {
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* NEW: Project Button Styles (Added for this update) */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn-sm {
+            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .btn-primary-sm {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+        .btn-primary-sm:hover { background-color: var(--hover-blue); }
+
+        .btn-dark-sm {
+            background-color: #1d1d1f;
+            color: white;
+        }
+        .btn-dark-sm:hover { background-color: #333; }
+
+        .icon { margin-right: 6px; font-style: normal; }
+
+        /* Skills Tags */
+        .skill-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            border-top: 1px solid #e5e5e5;
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 734px) {
+            h1 { font-size: 40px; }
+            .container { padding-top: 40px; }
+            .card { padding: 30px; }
+            .grid-2 { grid-template-columns: 1fr; } /* Fix for mobile layout */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <div class="nav-brand">Harris Xu</div>
+            <div>
+                <a href="#education">Education</a>
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="hero">
+            <h1>Harris Xu</h1>
+            <p class="subtitle">Business Analysis & Financial Strategy</p>
+            <div class="contact-links">
+                <a href="mailto:xuharris947@gmail.com" class="btn">Email Me</a>
+                <a href="https://www.linkedin.com/in/haoran-xu947" target="_blank" class="btn secondary">LinkedIn</a>
+            </div>
+        </div>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <span class="card-eyebrow">Los Angeles, CA</span>
+                    <h3 class="card-title">UCLA Anderson</h3>
+                    <div class="card-subtitle">Master of Science, Business Analysis</div>
+                    <div class="card-meta">Sep 2024 - Dec 2025</div>
+                    <p style="font-size: 14px; color: #555;">
+                        <strong>Focus:</strong> Python, R, SQL, Machine Learning, Prescriptive Models
+                    </p>
+                </div>
+                <div class="card">
+                    <span class="card-eyebrow">Boston, MA</span>
+                    <h3 class="card-title">Boston University</h3>
+                    <div class="card-subtitle">B.S. Business Administration</div>
+                    <div class="card-meta">Sep 2020 - Jun 2024</div>
+                    <p style="font-size: 14px; color: #555;">
+                        <strong>Focus:</strong> Financial Modeling, Business Analytics, Data Visualization, Corporate Finance
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="grid">
+                
+                <div class="card">
+                    <span class="card-eyebrow">Jun 2025 - Sep 2025</span>
+                    <h3 class="card-title">TikTok Inc.</h3>
+                    <div class="card-subtitle">Data Analyst Intern</div>
+                    <ul>
+                        <li>Identified TOP 5 user pain points via text analysis, improving response efficiency by 200%.</li>
+                        <li>Built a crisis-tracking model solving a major complaint wave within 48 hours.</li>
+                        <li>Designed an after-sales tracking framework achieving the 2nd-highest industry PSI score.</li>
+                        <li>Streamlined supply chain communication, cutting rollout time by 40%.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="card-eyebrow">May 2024 - Sep 2024</span>
+                    <h3 class="card-title">PwC</h3>
+                    <div class="card-subtitle">Financial Analyst Intern</div>
+                    <ul>
+                        <li>Modeled ETF portfolio allocation, increasing returns by 40bps and reducing volatility by 6%.</li>
+                        <li>Processed 100K+ data points via Python/SQL, improving yield curve model accuracy by 15%.</li>
+                        <li>Translated complex model outputs into actionable insights for client portfolio rebalancing.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="card-eyebrow">Jun 2022 - Aug 2022</span>
+                    <h3 class="card-title">Jasco Philanthropies</h3>
+                    <div class="card-subtitle">Management Trainee</div>
+                    <ul>
+                        <li>Built SQL reports increasing data retrieval efficiency by 30%.</li>
+                        <li>Conducted market valuation (DCF, ROE, EV/EBITDA) to recommend capital allocation strategies.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="grid"> <div class="card">
+                    <span class="card-eyebrow">UCLA • Los Angeles, CA</span>
+                    <h3 class="card-title">NYC Taxi Data Pipeline</h3>
+                    <div class="card-meta">Big Data & Shell Scripting</div>
+                    <ul>
+                        <li>Engineered a scalable pipeline for 200k+ records using Spark & DuckDB.</li>
+                        <li>Analyzed pandemic ridership trends and revenue shifts to identify key business impacts.</li>
+                        <li>Built interactive Tableau dashboards for borough-level visualization.</li>
+                    </ul>
+                    <div class="btn-group">
+                        <a href="https://public.tableau.com/app/profile/haofei.zhang/viz/team1_17421126800890/Team1Dashboard?publish=yes" target="_blank" class="btn-sm btn-primary-sm">
+                            <span class="icon">📊</span> View Dashboard
+                        </a>
+                        <a href="https://github.com/Harris947/Covid19-vs-NYC-Yellow-Taxi" target="_blank" class="btn-sm btn-dark-sm">
+                            <span class="icon">💻</span> GitHub Source
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-eyebrow">Data Visualization & Strategy</span>
+                    <h3 class="card-title">Financial Consumer Complaint Insights</h3>
+                    <div class="card-meta">CFPB Dataset Analysis</div>
+                    <ul>
+                        <li><strong>Pain Point Discovery:</strong> Analyzed millions of complaints from the CFPB dataset to identify high-frequency service issues and response delays.</li>
+                        <li><strong>Strategic Benchmarking:</strong> Compared service quality across major financial institutions to provide data-driven support for customer experience optimization.</li>
+                    </ul>
+                    <div class="btn-group">
+                        <a href="https://public.tableau.com/app/profile/harris.xu/viz/Project_group3_finalized/Presentation?publish=yes" target="_blank" class="btn-sm btn-primary-sm">
+                            <span class="icon">📈</span> View Presentation
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-eyebrow">Boston University • Boston, MA</span>
+                    <h3 class="card-title">CORE Product Strategy</h3>
+                    <div class="card-meta">Financial Modeling</div>
+                    <ul>
+                        <li>Led 8-member cross-functional team for a "Reality Product" launch.</li>
+                        <li>Developed financial models aligning with fitness industry demand.</li>
+                        <li>Delivered a 140-page business plan to attract investors.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Technical Skills</h2>
+            <div class="card">
+                <div style="margin-bottom: 20px;">
+                    <div class="card-subtitle">Programming & Data</div>
+                    <div>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Sklearn</span>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <div class="card-subtitle">Visualization & Software</div>
+                    <div>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Excel (Adv)</span>
+                        <span class="skill-tag">Google Suite</span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card-subtitle">Analytics & Cloud</div>
+                    <div>
+                        <span class="skill-tag">A/B Testing</span>
+                        <span class="skill-tag">K-Means Clustering</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="leadership">
+            <h2>Leadership</h2>
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                    <div>
+                        <h3 class="card-title">UCLA Chinese Music Ensemble</h3>
+                        <div class="card-subtitle">Erhu Group Founder</div>
+                    </div>
+                    <div class="card-meta" style="margin-bottom: 10px;">Los Angeles, CA</div>
+                </div>
+                <p style="color: #333; font-size: 15px;">
+                    Lead the 20+ member string section, coordinating repertoire and mentoring junior members in technique.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Harris Xu. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
